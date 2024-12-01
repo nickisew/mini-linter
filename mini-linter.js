@@ -5,7 +5,9 @@ const overusedWords = ["really", "very", "basically"];
 
 const unnecessaryWords = ["extremely", "literally", "actually"];
 
-console.log(story.length);
+let storyWords = story.split(" ");
+
+console.log(storyWords.length);
 
 // Step 3
 // There is an array of words that are unnecessary.
@@ -22,6 +24,15 @@ const unnecessary = function (filteredArray, unnecessaryWords) {
   }, []); // Start with an empty array
 };
 
+// OR
+//  const betterWords = storyWords.filter(function (word) {
+//   if (!unnecessaryWords.includes(word)) {
+//     return word;
+//   }
+//  });
+
+
+// To return
 // console.log(betterWords); Result will be undefined error b/c
 // betterWords is not accessible outside of the unnecessary function
 
@@ -32,17 +43,13 @@ const filteredStory = unnecessary(story.split(" "), unnecessaryWords);
 // Log the result of the unnecessary function (the filtered array)
 console.log(filteredStory);
 
-// var allMoreThan75 = shoes.every(function (shoe) {
-//   return shoe.price > 75;
-// });
-
 // Step 4
 // There is an array of words called overusedWords.
 // These are words overused in this story.
 // You want to let the user of your program know
 // how many times they have used these overused words.
 
-const overUsedCount = filteredStory.reduce(function (accumulator, word) {
+const overUsedCount = storyWords.reduce(function (accumulator, word) {
   // To count the occurrences of overused words in the story,
   // we should use the reduce() method and maintain an object accumulator for counting.
   if (overusedWords.includes(word)) {
@@ -60,17 +67,20 @@ console.log(overUsedCount);
 // Step 5
 // Now, count how many sentences are in the paragraph.
 const punctuation = [".", "!"]
-const punctuationCount = story.reduce(function (accumulator2, character) {
-  if (punctuation.includes(character)) {
-    accumulator2[character] = (accumulator[character] || 0) +1;
+const punctuationCount = storyWords.reduce(function (count, word) {
+  const lastChar = word[word.length - 1]; // Get the last character of the word
+  if (punctuation.includes(lastChar)) {
+    count += 1
   }
-  return accumulator2;
-}, {});
+  return count;
+}, 0);
 
 console.log(punctuationCount);
 
 // Step 6
 // create a function that logs all of them with some formatting.
+
+console.log(betterWords.join(''));
 
 // Step 7
 // Now, log the betterWords array to the console as a single string.
